@@ -1,0 +1,23 @@
+__pycache__/
+*.pyc
+venv/
+.venv/
+.env
+.idea/
+.DS_Store
+
+# Google service account credentials - never commit.
+# Every legitimate .json in this repo lives under services/<name>/, so ignoring
+# the repo root wholesale catches any key file whatever Google named it. A
+# name-based pattern does not: Google names these after the project, so the one
+# rule you did not write is the one that lets a live private key through.
+/*.json
+*service_account*.json
+
+# Captured Marketo payloads contain live callback tokens
+services/*/test_payloads/
+
+# Telegraf is licensed from Pangram Pangram Foundry and must not be
+# redistributed. The bundled OFL font beside it is fine to commit. See
+# services/generateTicket/assets/fonts/README.md
+services/generateTicket/assets/fonts/Telegraf-*

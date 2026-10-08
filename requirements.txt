@@ -1,0 +1,20 @@
+# Runtime dependencies. Mirrors pyproject.toml, for plain pip/venv workflows:
+#
+#   python3 -m venv .venv
+#   ./.venv/bin/pip install -r requirements.txt
+#
+Flask>=2.2
+gunicorn>=21.2
+gevent>=23.9
+python-dotenv>=1.0
+requests>=2.32
+pandas>=2.2
+pytz>=2024.1
+pyyaml>=6.0
+openai>=1.75
+google-auth>=2.39
+google-api-python-client>=2.167
+
+# generateTicket: composites the event pass and renders the check-in QR code
+Pillow>=10.0
+qrcode>=7.4

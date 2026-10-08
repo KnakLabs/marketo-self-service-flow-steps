@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "marketo-ssfs"
+version = "0.1.0"
+description = "Marketo self-service flow steps"
+authors = ["Knak"]
+
+[tool.poetry.dependencies]
+python = ">=3.10"
+Flask = "^2.2.0"
+openai = "^1.75.0"
+google-api-python-client = "^2.167.0"
+google-auth = "^2.39.0"
+pandas = "^2.2.3"
+requests = "^2.32.3"
+pyyaml = "^6.0.2"
+python-dotenv = "^1.0.1"
+pytz = "^2024.1"
+Pillow = "^10.0.0"
+qrcode = "^7.4.2"
+
+[tool.pyright]
+# https://github.com/microsoft/pyright/blob/main/docs/configuration.md
+useLibraryCodeForTypes = true
+
+[tool.ruff]
+# https://beta.ruff.rs/docs/configuration/
+select = ['E', 'W', 'F', 'I', 'B', 'C4', 'ARG', 'SIM']
+ignore = ['W291', 'W292', 'W293']
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
