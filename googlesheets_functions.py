@@ -12,7 +12,7 @@ MAX_REQUESTS_PER_MINUTE = 60
 # findRowByValue for the authoritative row - other processes/workers still race.
 _append_lock = threading.Lock()
 TIME_INTERVAL = 60 / MAX_REQUESTS_PER_MINUTE
-SERVICE_ACCOUNT_FILE = os.getenv('GOOGLE_SERVICE_ACCOUNT_FILE', 'inbound-footing-xxx-123.json')
+SERVICE_ACCOUNT_FILE = os.getenv('GOOGLE_SERVICE_ACCOUNT_FILE', 'service-account.json')
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 def _get_service():

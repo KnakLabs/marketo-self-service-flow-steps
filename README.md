@@ -50,10 +50,24 @@ SSFS callback.
 python3 -m venv .venv
 ./.venv/bin/pip install -r requirements.txt
 cp .env.example .env        # then fill it in
-./.venv/bin/python main.py
+./.venv/bin/python main.py  # development only
 ```
 
 Python 3.10 or newer — the code uses `str | None` syntax.
+
+**In production, run it under a WSGI server, not `main.py`.** That line
+starts Flask's development server, which is single-threaded and explicitly
+not built to face the internet — and a batch here holds a request open while
+it works, so one slow batch blocks every other request behind it:
+
+```bash
+./.venv/bin/gunicorn --workers 2 --threads 8 --timeout 600 main:app
+```
+
+**Set `PUBLIC_BASE_URL` to the URL Marketo will reach.** `/install` rewrites
+the OpenAPI `servers` entry to it, and Marketo stores whatever it is told at
+install time. Left unset behind a proxy, the spec advertises the internal
+host and every callback goes to an address Marketo cannot resolve.
 
 Any host works, since the code reads plain environment variables, so a
 platform's own secrets manager does the same job as `.env`.

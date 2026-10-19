@@ -6,7 +6,7 @@
     "description": "Categorizes the free-text 'How did you hear about us?' answer into Hear Source and Hear Source Detail",
     "x-providerName": "knak.com",
     "x-schemaVersion": "1.0.0",
-    "x-supportContact": "tyron.pretorius@knak.com"
+    "x-supportContact": "support@knak.com"
   },
   "servers": [
     {

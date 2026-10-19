@@ -6,7 +6,7 @@
     "description": "Generates a personalized Knak event pass image with a check-in QR code, uploads it to a Design Studio folder named after the calling program, and stores its URL in a program member field",
     "x-providerName": "knak.com",
     "x-schemaVersion": "1.0.0",
-    "x-supportContact": "tyron.pretorius@knak.com"
+    "x-supportContact": "support@knak.com"
   },
   "servers": [
     {
