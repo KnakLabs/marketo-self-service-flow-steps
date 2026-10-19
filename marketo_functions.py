@@ -87,10 +87,17 @@ def _access_token() -> str:
                 "MARKETO_CLIENT_ID and MARKETO_CLIENT_SECRET"
             )
 
+        # POST with a form body, not GET with query params. requests builds an
+        # HTTPError's message from the response URL, and that message is written
+        # into the lead's Marketo activity field, the Sheets log and stdout - so
+        # a failed token call with the secret in the query string published the
+        # client secret to all three. A token failure during batch setup is
+        # reported against every lead in the batch, so one 401 leaked it once
+        # per lead. Marketo accepts POST here and returns the same token.
         _LIMITER.acquire()
-        r = requests.get(
+        r = requests.post(
             f"{BASE_URL}/identity/oauth/token",
-            params={
+            data={
                 "grant_type": "client_credentials",
                 "client_id": CLIENT_ID,
                 "client_secret": CLIENT_SECRET,
