@@ -18,6 +18,7 @@ import threading
 import time
 from flask import Blueprint, request, jsonify, Response, send_file
 import json
+import hmac
 import os
 import traceback
 
@@ -81,7 +82,22 @@ OUT_DETAIL = "hear_source_detail"
 
 # ---------- AUTH ----------
 def _check_auth(username, password):
-    return username == os.getenv("MARKETO_USER") and password == os.getenv("MARKETO_PASSWORD")
+    """Basic-auth check. Refuses everything when the credentials are unset.
+
+    .env.example ships MARKETO_USER and MARKETO_PASSWORD empty, so a deploy
+    that never filled them in used to accept a blank username and password -
+    "" == "" is true, and the service was open to anyone who found the URL.
+    Refusing is the right failure: the flow step stops, which is loud.
+
+    compare_digest rather than == so the comparison does not finish early on
+    the first wrong character.
+    """
+    expected_user = os.getenv("MARKETO_USER") or ""
+    expected_password = os.getenv("MARKETO_PASSWORD") or ""
+    if not expected_user or not expected_password:
+        return False
+    return (hmac.compare_digest(username or "", expected_user)
+            and hmac.compare_digest(password or "", expected_password))
 
 
 def _split_long_text(col_name: str, value: str | None) -> dict[str, str]:
@@ -290,7 +306,7 @@ def _process_batch(data: dict, timestamp: str, batch_row_number) -> None:
                 return callback_object, log_row
 
             except Exception as e:
-                error = f"{e}\n{traceback.format_exc()}"
+                error = f"{type(e).__name__}: {e}"
                 # Per-lead failures never reached the terminal before, so the
                 # only copy lived in a Sheets row that might not get written.
                 print(f"[hearSource] lead {lead_id} failed: {type(e).__name__}: {e}")
@@ -360,8 +376,11 @@ def _process_batch(data: dict, timestamp: str, batch_row_number) -> None:
     except Exception as e:
         # Print it too - if the Sheets write below also fails, this is the only
         # place the error survives.
+        # The trace goes to the log, where an operator can read it. Only the
+        # message rides into Marketo: an activity field is shown to anyone with
+        # access to the lead, and a trace leaks file paths and internals.
         traceback.print_exc()
-        error_text = f"{e}\n{traceback.format_exc()}"
+        error_text = f"{type(e).__name__}: {e}"
 
         try:
             if batch_row_number:
