@@ -33,18 +33,18 @@ anyway:
 ## Detail aliases
 
 The model normalizes spelling well but not *consistently* — the same input came
-back as "Exit Five" on one run and "Exit Five Newsletter" on the next, which
+back as "Marketo Nation" on one run and "Marketo Community" on the next, which
 splits your reporting across two picklist values. `DETAIL_ALIASES` in
 `taxonomy.py` forces known names to one spelling after the model answers:
 
 ```python
-"Exit Five Newsletter": ["exit five", "exit 5", "exitfive", ...],
-"LinkedIn":             ["linked in", "linkden", "li", ...],
-"X":                    ["x twitter", "twitter", "tweet", ...],
+"Marketo Community": ["marketo nation", "nation", ...],
+"LinkedIn":          ["linked in", "linkden", "li", ...],
+"X":                 ["x twitter", "twitter", "tweet", ...],
 ```
 
-Matching ignores case, spaces and punctuation, so `EXIT-5`, `exitfive` and
-`Exit 5` all resolve from the one variant `exit five`. Names not in the map pass
+Matching ignores case, spaces and punctuation, so `MARKETO-NATION`,
+`marketo nation` and `Marketo Nation` all resolve from one variant. Names not in the map pass
 through as the model normalized them, so a new event or publication still works
 the first time it appears — **add a line whenever the Sheets log shows the same
 source arriving under two spellings.** `/status` fails if two canonical values
@@ -236,9 +236,8 @@ The **LIVE run is the one that tests `system_prompt.md`**. It sends all 26
 phrases — including the multi-source tie-break examples from §3 — to the real
 model and prints any answer that doesn't match the expected one.
 
-It is not optional theatre: the first two live runs caught two real defects the
-mocked run could not see (a plugin mention returning "Knak Plugin" instead of
-the fixed `Claude Plugin`, and "exitfive" drifting between two spellings across
-runs). Run it after every change to `system_prompt.md` or `taxonomy.py`, and run
+It is not optional theatre: the first two live runs caught real defects the
+mocked run could not see — among them a community name drifting between two
+spellings across runs, which is why `DETAIL_ALIASES` exists at all. Run it after every change to `system_prompt.md` or `taxonomy.py`, and run
 it more than once — the failures that matter most are the ones that only appear
 on some runs.
