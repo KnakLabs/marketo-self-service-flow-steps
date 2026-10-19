@@ -43,19 +43,17 @@ DETAIL_CLOSED_LIST: dict[str, list[str]] = {
 # Detail aliases - make known names deterministic
 # ---------------------------------------------------------------------------
 # The model normalizes spelling well but not consistently: the same input can
-# come back as "Exit Five" on one run and "Exit Five Newsletter" on the next,
+# come back as "Marketo Nation" on one run and "Marketo Community" on the next,
 # which splits your reporting across two picklist values. Anything listed here
 # is forced to the canonical spelling after the model answers.
 #
-# Matching ignores case, spaces and punctuation, so "Exit 5", "exitfive" and
-# "EXIT-FIVE" all resolve from the single variant "exit five". Add a new line
+# Matching ignores case, spaces and punctuation, so "Marketo Nation",
+# "marketo nation" and "MARKETO-NATION" all resolve from one variant. Add a line
 # whenever the Sheets log shows a name arriving in more than one spelling.
 #
 #   "Canonical value": ["variant", "variant", ...]
 DETAIL_ALIASES: dict[str, list[str]] = {
     # Publications / communities
-    "Exit Five Newsletter": ["exit five", "exit 5", "exitfive", "exit five news",
-                             "exit 5 newsletter", "exitfive newsletter"],
     "Marketo Community": ["marketo nation", "nation", "marketo community forum"],
     "G2": ["g 2", "g2 crowd", "g2crowd"],
     # Social platforms
@@ -74,8 +72,6 @@ DETAIL_ALIASES: dict[str, list[str]] = {
     # Referral shorthands
     "WOM": ["word of mouth", "colleague", "coworker", "co worker", "friend",
             "peer", "referral", "word of mouth referral"],
-    "Claude Plugin": ["knak plugin", "plugin", "skill", "claude skill",
-                      "email marketing plugin", "knak skill"],
     # Events
     "Adobe Summit": ["summit", "adobe summit 2026", "adobe summit booth"],
     "GURU Conference": ["guru", "guru conf", "guru conference 2026"],
