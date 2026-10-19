@@ -32,9 +32,9 @@ anyway:
 
 ## Detail aliases
 
-The model normalizes spelling well but not *consistently* — the same input came
-back as "Marketo Nation" on one run and "Marketo Community" on the next, which
-splits your reporting across two picklist values. `DETAIL_ALIASES` in
+The model normalizes spelling well but not *consistently* — the same input can
+come back as "Marketo Nation" on one run and "Marketo Community" on the next,
+which splits your reporting across two picklist values. `DETAIL_ALIASES` in
 `taxonomy.py` forces known names to one spelling after the model answers:
 
 ```python
@@ -236,8 +236,9 @@ The **LIVE run is the one that tests `system_prompt.md`**. It sends all 26
 phrases — including the multi-source tie-break examples from §3 — to the real
 model and prints any answer that doesn't match the expected one.
 
-It is not optional theatre: the first two live runs caught real defects the
-mocked run could not see — among them a community name drifting between two
-spellings across runs, which is why `DETAIL_ALIASES` exists at all. Run it after every change to `system_prompt.md` or `taxonomy.py`, and run
-it more than once — the failures that matter most are the ones that only appear
-on some runs.
+It is not optional theatre. The mocked run replays fixed answers, so it can
+only check the plumbing; whether the prompt actually produces the right answer
+is something only the model can tell you. Run it after every change to
+`system_prompt.md` or `taxonomy.py`, and run it more than once — the failures
+that matter most are the ones that appear on some runs and not others, which a
+single run will happily hide.

@@ -54,7 +54,7 @@ Some respondents name more than one source in the same answer. Handle this in tw
 8. **Organic Social — LinkedIn**
 9. **AI Assistant**
 10. **Organic Search — non-Google engine** (Bing, DuckDuckGo, Yahoo, Ecosia)
-11. **Organic Search — Google** (lowest priority; the single most common answer in this field, so it never wins a tie-break against anything else named)
+11. **Organic Search — Google** (lowest priority; typically the most common answer in this field, so it carries the least information when something else is also named)
 
 Worked examples (no sequencing language present, so the ladder decides):
 - "Found you on Google and X" → Google = tier 11, X = tier 7 → report **Organic Social / X**.
