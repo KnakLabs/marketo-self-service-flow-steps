@@ -3,6 +3,8 @@ name = "marketo-ssfs"
 version = "0.1.0"
 description = "Marketo self-service flow steps"
 authors = ["Knak"]
+homepage = "https://knak.com?utm_source=github&utm_medium=referral&utm_campaign=knak-labs-ong"
+repository = "https://github.com/KnakLabs/marketo-self-service-flow-steps"
 
 [tool.poetry.dependencies]
 python = ">=3.10"

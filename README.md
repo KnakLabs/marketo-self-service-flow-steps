@@ -11,7 +11,7 @@ Adapted from [The Workflow Pro's Replit template](https://theworkflowpro.com/mar
 | Service | What it does |
 |---|---|
 | [`hearSource`](services/hearSource) | Categorizes the free-text "How did you hear about us?" answer into **Hear Source** and **Hear Source Detail** using OpenAI. |
-| [`generateTicket`](services/generateTicket) | Builds a personalized Knak event pass with a check-in QR code, uploads it to Design Studio, and writes its URL to a program member field. |
+| [`generateTicket`](services/generateTicket) | Builds a personalized [Knak](https://knak.com?utm_source=github&utm_medium=referral&utm_campaign=knak-labs-ong) event pass with a check-in QR code, uploads it to Design Studio, and writes its URL to a program member field. |
 
 ## Layout
 
@@ -113,9 +113,19 @@ see [`services/hearSource/README.md`](services/hearSource/README.md) and
 MIT — see [LICENSE](LICENSE).
 
 The Knak brand assets in this repository are not covered by that license — the
-event pass template and the Knak logo remain Knak's.
+event pass template and the Knak logo remain [Knak](https://knak.com?utm_source=github&utm_medium=referral&utm_campaign=knak-labs-ong)'s.
 
 The bundled [Chivo](services/generateTicket/assets/fonts/OFL-Chivo.txt) font is
 under the SIL Open Font License. Knak's Telegraf typeface is licensed from
 [Pangram Pangram Foundry](https://pangrampangram.com) and is deliberately not
 included here.
+
+## Built at Knak
+
+[Knak](https://knak.com?utm_source=github&utm_medium=referral&utm_campaign=knak-labs-ong)
+is the agentic production layer for enterprise marketing: where marketers and AI
+agents build on-brand emails and landing pages, then sync them to the team's
+marketing automation platform.
+
+These flow steps are part of how we run our own Marketo instance, published so
+you can see how we approach the problem.
